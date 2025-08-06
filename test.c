@@ -17,8 +17,9 @@ int ft_stop(t_data *data) // fermer la fenetre
     return (1);
 }
 
-int key_hook(int key)
+int key_hook(int key, t_data *data)
 {
+	(void)data;
     if (key == KEY_A)
         printf("bonjour");
     printf("key:%d\n", key);
@@ -71,7 +72,7 @@ int main(void)
 	// ========== ÉTAPE 4: CHARGEMENT DE L'IMAGE ==========
 	// Charger une image et la placer dans la fenêtre
 	// Assurez-vous de remplacer le chemin par un chemin d'image valide
-	data->img_path = "./image/sortie_ouverte.xpm";
+	data->img_path = "./image/mur.xpm";
 	data->img_sol = mlx_xpm_file_to_image(data->mlx_ptr, data->img_path, &data->img_width, &data->img_height);
 	if (!data->img_sol)
 	{
@@ -96,7 +97,7 @@ int main(void)
 	// ========== ÉTAPE 6: GESTION DES ÉVÉNEMENTS ==========
 	// Gérer les événements de la fenêtre (fermeture, touches, etc.)
 	mlx_hook(data->win_ptr, DestroyNotify, 0, ft_stop, data);
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_hook, data->mlx_ptr);
+	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_hook, data);
 
 	// ========== ÉTAPE 7: BOUCLE D'ÉVÉNEMENTS ==========
 	// Démarrer la boucle d'événements (le programme reste ouvert)

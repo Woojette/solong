@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_tout.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wooyang <wooyang@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/04 13:21:01 by wooyang           #+#    #+#             */
+/*   Updated: 2025/08/04 13:21:41 by wooyang          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 char	*ft_return(char *str)
@@ -8,10 +20,10 @@ char	*ft_return(char *str)
 
 	i = 0;
 	j = 0;
+	if (!str)
+		return (NULL);
 	while (str[i] != '\0')
 		i++;
-	// if (str[i] == '\n')
-	// 	i++;
 	newstr = malloc(sizeof(char) * (i + 1));
 	if (!newstr)
 		return (NULL);
@@ -97,7 +109,7 @@ char	*get_next_line(int fd)
 		return (free(str), str = NULL, NULL);
 	temp = ft_reste(str);
 	if (!temp)
-		return (NULL);
+		return (free(str), str = NULL, free(strreturn), NULL);
 	free(str);
 	str = temp;
 	if (str && str[0] == '\0')

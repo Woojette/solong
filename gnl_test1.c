@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gnl_test1.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wooyang <wooyang@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/04 13:22:43 by wooyang           #+#    #+#             */
+/*   Updated: 2025/08/04 13:22:56 by wooyang          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 char	*ft_calloc(int size)
@@ -16,20 +28,6 @@ char	*ft_calloc(int size)
 	}
 	return (newcalloc);
 }
-
-// int	ft_check(char *str, char c)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == c)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 char	*ft_erreur(int readfd, char *str)
 {
