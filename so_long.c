@@ -34,6 +34,33 @@ void	ft_free_split_tout(char **str)
 	free(str);
 }
 
+void	ft_free_final(t_data *data)
+{
+	if (data->img_player)
+		mlx_destroy_image(data->mlx_ptr, data->img_player);
+	if (data->img_mur)
+		mlx_destroy_image(data->mlx_ptr, data->img_mur);
+	if (data->img_calice)
+		mlx_destroy_image(data->mlx_ptr, data->img_calice);
+	if (data->img_sortie)
+		mlx_destroy_image(data->mlx_ptr, data->img_sortie);
+	if (data->img_sol)
+		mlx_destroy_image(data->mlx_ptr, data->img_sol);
+	if (data->win_ptr)
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	if (data->mlx_ptr)
+	{
+		mlx_destroy_display(data->mlx_ptr);
+		free(data->mlx_ptr);
+	}
+	if (data->charmap_origine)
+		ft_free_split_tout(data->charmap_origine);
+	if (data->charmap)
+		ft_free_split_tout(data->charmap);
+	if (data)
+		ft_free(data);
+}
+
 int	ft_check_ber(char *str)
 {
 	int		i;
@@ -168,7 +195,6 @@ int	position_p(char **str, char c, t_data *data) // check position P y
 			{
 				data->x = x;
 				data->y = y;
-				// return (y);
 				printf("x:%d y:%d\n", data->x, data->y);
 				return(0);
 			}
@@ -283,11 +309,105 @@ int	ft_print_image(char **str, t_data *data)
 	return (0);
 }
 
-// int	free_destroy(t_data *data)
-// {
-// 	if (data->img_player)
+int	ft_check_calice(char *str, char c)
+{
+	int	i;
+	int	j;
 
-// }
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			j++;
+		i++;
+	}
+	return (j);
+}
+
+int	key_deplacement(int key, t_data *data)
+{
+	position_p(data->charmap_origine, 'P', data);
+	if (key == KEY_ESC)
+	{
+		ft_free_final(data);
+		exit (0);
+	}
+	else if (key == KEY_haut || key == KEY_W)
+	{
+		if ((data->charmap_origine[data->y-1][data->x] == 'E') && (data->calice_ramasse == data->calice_total))
+		{
+			ft_free_final(data);
+			exit (0);
+		}
+		if (data->charmap_origine[data->y-1][data->x] == 'C')
+		{
+			data->calice_ramasse++;
+			printf("%d\n", data->calice_ramasse); 
+		}
+		if ((data->charmap_origine[data->y-1][data->x] != '1') && (data->charmap_origine[data->y-1][data->x] != 'E'))
+		{
+			data->charmap_origine[data->y-1][data->x] = 'P';
+			data->charmap_origine[data->y][data->x] = '0';
+		}
+	}
+	else if (key == KEY_gauche || key == KEY_A)
+	{
+		if ((data->charmap_origine[data->y][data->x-1] == 'E') && (data->calice_ramasse == data->calice_total))
+		{
+			ft_free_final(data);
+			exit (0);
+		}
+		if (data->charmap_origine[data->y][data->x-1] == 'C')
+		{
+			data->calice_ramasse++;
+			printf("%d\n", data->calice_ramasse); 
+		}
+		if ((data->charmap_origine[data->y][data->x-1] != '1') && (data->charmap_origine[data->y][data->x-1] != 'E'))
+		{
+			data->charmap_origine[data->y][data->x-1] = 'P';
+			data->charmap_origine[data->y][data->x] = '0';
+		}
+	}
+	else if (key == KEY_droite || key == KEY_D)
+	{
+		if ((data->charmap_origine[data->y][data->x+1] == 'E') && (data->calice_ramasse == data->calice_total))
+		{
+			ft_free_final(data);
+			exit (0);
+		}
+		if (data->charmap_origine[data->y][data->x+1] == 'C')
+		{
+			data->calice_ramasse++;
+			printf("%d\n", data->calice_ramasse); 
+		}
+		if ((data->charmap_origine[data->y][data->x+1] != '1') && (data->charmap_origine[data->y][data->x+1] != 'E'))
+		{
+			data->charmap_origine[data->y][data->x+1] = 'P';
+			data->charmap_origine[data->y][data->x] = '0';
+		}
+	}
+	else if (key == KEY_bas || key == KEY_S)
+	{
+		if ((data->charmap_origine[data->y+1][data->x] == 'E') && (data->calice_ramasse == data->calice_total))
+		{
+			ft_free_final(data);
+			exit (0);
+		}
+		if (data->charmap_origine[data->y+1][data->x] == 'C')
+		{
+			data->calice_ramasse++;
+			printf("%d\n", data->calice_ramasse); 
+		}
+		if ((data->charmap_origine[data->y+1][data->x] != '1') && (data->charmap_origine[data->y+1][data->x] != 'E'))
+		{
+			data->charmap_origine[data->y+1][data->x] = 'P';
+			data->charmap_origine[data->y][data->x] = '0';
+		}
+	}
+	ft_print_image(data->charmap_origine, data);
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
@@ -441,23 +561,20 @@ int	main(int ac, char **av)
 		return (ft_free_split_tout(data->charmap), ft_free(data), 1);
 	}
 
+	// afficher l'image
 	ft_print_image(data->charmap_origine, data);
+	// ft_printf("calice total : %d\n", ft_check_calice(data->charread, 'C'));
 
+	data->calice_ramasse = 0;
+	data->calice_total = ft_check_calice(data->charread, 'C');
 
-	mlx_loop(data->mlx_ptr);
+	// recuperer + deplacer P en fonction de la direction
+	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_deplacement, data);
 
-	mlx_destroy_image(data->mlx_ptr, data->img_player);
-	mlx_destroy_image(data->mlx_ptr, data->img_mur);
-	mlx_destroy_image(data->mlx_ptr, data->img_calice);
-	mlx_destroy_image(data->mlx_ptr, data->img_sortie);
-	mlx_destroy_image(data->mlx_ptr, data->img_sol);
+	mlx_loop(data->mlx_ptr); // leak
 
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-	ft_free_split_tout(data->charmap_origine);
-	ft_free_split_tout(data->charmap);
-	ft_free(data);
+	// free toutes les images
+	ft_free_final(data);
 	printf("Bon\n");
 	return (0);
 }

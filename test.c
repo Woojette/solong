@@ -25,6 +25,7 @@ int key_hook(int key, t_data *data)
     printf("key:%d\n", key);
     return (1);
 }
+
 int main(void)
 {
 	// ========== ÉTAPE 1: ALLOCATION MÉMOIRE ==========

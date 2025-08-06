@@ -30,7 +30,15 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 
-# define KEY_A 97
+# define KEY_ESC 65307 // exit
+# define KEY_haut 65362 // [y-1][x]
+# define KEY_W 119 // [y-1][x]
+# define KEY_gauche 65361 // [y][x-1]
+# define KEY_A 97 // [y][x-1]
+# define KEY_droite 65363 // [y][x+1]
+# define KEY_D 100 // [y][x+1]
+# define KEY_bas 65364 // [y+1][x]
+# define KEY_S 115 // [y+1][x]
 
 typedef struct s_data {
 	void	*mlx_ptr;
@@ -52,6 +60,8 @@ typedef struct s_data {
 	int		y;
 	int		max_x;
 	int		max_y;
+	int		calice_ramasse;
+	int		calice_total;
 	char	*charread;
 	char	**charmap;
 	char	**charmap_origine;
