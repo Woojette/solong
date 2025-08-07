@@ -62,6 +62,7 @@ typedef struct s_data {
 	int		max_y;
 	int		calice_ramasse;
 	int		calice_total;
+	int		pas;
 	char	*charread;
 	char	**charmap;
 	char	**charmap_origine;
