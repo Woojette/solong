@@ -104,7 +104,6 @@ int		position_p(char **str, char c, t_data *data);
 int		ft_check_chemin_exec(t_data *data);
 int		ft_check_element_double_tableau(char **str, char c, t_data *data);
 int		ft_check_p_avec_espace(char **str, int y, int x, t_data *data);
-void	ft_print_map(char **str, t_data *data);
 void	ft_print_image_detaillee(char c, int y, int x, t_data *data);
 int		ft_print_image(t_data *data);
 int		key_deplacement(int key, t_data *data);

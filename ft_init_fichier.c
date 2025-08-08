@@ -15,7 +15,7 @@
 int	ft_init_fichier(char *str, t_data *data)
 {
 	if (ft_check_ber(str) == 1)
-		return (ft_free(data), ft_printf("Erreur-1\n"), 1);
+		return (ft_free(data), ft_printf("Erreur\nfichier\n"), 1);
 	data->fd = open(str, O_RDONLY);
 	if (data->fd == -1)
 		return (perror("open erreur"), 1);

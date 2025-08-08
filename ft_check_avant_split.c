@@ -96,12 +96,12 @@ int	ft_check_charread_exec(char *str, t_data *data)
 {
 	(void)data;
 	if (ft_check_element(str) == 1)
-		return (ft_printf("Erreur0\n"), 1);
+		return (ft_printf("Erreur\nAutre element\n"), 1);
 	if (ft_check_un(str, 'P') == 1)
-		return (ft_printf("Erreur1\n"), 1);
+		return (ft_printf("Erreur\nPlayer\n"), 1);
 	if (ft_check_un(str, 'E') == 1)
-		return (ft_printf("Erreur2\n"), 1);
+		return (ft_printf("Erreur\nExit\n"), 1);
 	if (ft_check_un_plus(str, 'C') == 1)
-		return (ft_printf("Erreur3\n"), 1);
+		return (ft_printf("Erreur\nCalice\n"), 1);
 	return (0);
 }
