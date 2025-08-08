@@ -24,7 +24,7 @@ void	ft_haut(t_data *data)
 	if (data->charmap_origine[data->y -1][data->x] == 'C')
 	{
 		data->calice_ramasse++;
-		ft_printf("calice : %d | pas : %d\n", data->calice_ramasse, data->pas);
+		ft_printf("calice : %d\n", data->calice_ramasse);
 	}
 	if ((data->charmap_origine[data->y -1][data->x] != '1')
 		&& (data->charmap_origine[data->y -1][data->x] != 'E'))
@@ -47,7 +47,7 @@ void	ft_gauche(t_data *data)
 	if (data->charmap_origine[data->y][data->x -1] == 'C')
 	{
 		data->calice_ramasse++;
-		ft_printf("calice : %d | pas : %d\n", data->calice_ramasse, data->pas);
+		ft_printf("calice : %d\n", data->calice_ramasse);
 	}
 	if ((data->charmap_origine[data->y][data->x -1] != '1')
 		&& (data->charmap_origine[data->y][data->x -1] != 'E'))
@@ -70,7 +70,7 @@ void	ft_droite(t_data *data)
 	if (data->charmap_origine[data->y][data->x +1] == 'C')
 	{
 		data->calice_ramasse++;
-		ft_printf("calice : %d | pas : %d\n", data->calice_ramasse, data->pas);
+		ft_printf("calice : %d\n", data->calice_ramasse);
 	}
 	if ((data->charmap_origine[data->y][data->x +1] != '1')
 		&& (data->charmap_origine[data->y][data->x +1] != 'E'))
@@ -93,7 +93,7 @@ void	ft_bas(t_data *data)
 	if (data->charmap_origine[data->y +1][data->x] == 'C')
 	{
 		data->calice_ramasse++;
-		ft_printf("calice : %d | pas : %d\n", data->calice_ramasse, data->pas);
+		ft_printf("calice : %d\n", data->calice_ramasse);
 	}
 	if ((data->charmap_origine[data->y +1][data->x] != '1')
 		&& (data->charmap_origine[data->y +1][data->x] != 'E'))

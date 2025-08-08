@@ -67,6 +67,7 @@ int	ft_check_p_avec_espace(char **str, int y, int x, t_data *data)
 
 void	ft_print_map(char **str, t_data *data)
 {
+	(void)str;
 	int	x;
 	int	y;
 
@@ -76,7 +77,7 @@ void	ft_print_map(char **str, t_data *data)
 		x = 0;
 		while (x <= data->max_x)
 		{
-			ft_printf("%c", str[y][x]);
+			// ft_printf("%c", str[y][x]);
 			x++;
 		}
 		ft_printf("\n");
@@ -99,7 +100,6 @@ int	position_p(char **str, char c, t_data *data)
 			{
 				data->x = x;
 				data->y = y;
-				printf("x:%d y:%d\n", data->x, data->y);
 				return (0);
 			}
 			x++;
@@ -113,7 +113,6 @@ int	position_p(char **str, char c, t_data *data)
 int	ft_check_chemin_exec(t_data *data)
 {
 	position_p(data->charmap, 'P', data);
-	printf("TEST DEHORS:x:%d y:%d\n", data->x, data->y);
 	if (ft_check_p_avec_espace(data->charmap, data->y, data->x, data) == 1)
 	{
 		ft_print_map(data->charmap, data);
