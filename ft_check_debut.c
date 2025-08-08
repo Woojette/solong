@@ -12,24 +12,22 @@
 
 #include "so_long.h"
 
-int	main(int ac, char **av)
+int	ft_check_debut(char *str, t_data *data)
 {
-	t_data	*data;
-
-	if (ac != 2)
+	if (ft_init_fichier(str, data) == 1)
 		return (1);
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (perror("data"), 1);
-	if (ft_check_debut(av[1], data) == 1)
-		return (1);
-	if (ft_init_mlx_window(data) == 1)
-		return (1);
-	if (init_image(data) == 1)
-		return (ft_free_image_reduite(data), 1);
-	ft_print_image(data);
-	mlx_hook(data->win_ptr, DestroyNotify, 0, ft_free_final_croix, data);
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_deplacement, data);
-	mlx_loop(data->mlx_ptr);
+	if (ft_check_charread_exec(data->charread, data) == 1)
+		return (ft_free(data), 1);
+	data->charmap = ft_split(data->charread, '\n');
+	if (!data->charmap)
+		return (perror("split charmap"), ft_free(data), 1);
+	if (ft_check_charmap_exec(data->charmap, data) == 1)
+		return (ft_free_split_tout(data->charmap), ft_free(data), 1);
+	if (ft_check_chemin_exec(data) == 1)
+		return (ft_free_split_tout(data->charmap), ft_free(data), 1);
+	data->charmap_origine = ft_split(data->charread, '\n');
+	if (!data->charmap_origine)
+		return (perror("split charmap origine"),
+			ft_free_split_tout(data->charmap), ft_free(data), 1);
 	return (0);
 }

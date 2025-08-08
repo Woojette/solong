@@ -12,24 +12,58 @@
 
 #include "so_long.h"
 
-int	main(int ac, char **av)
+// rectangle
+int	ft_check_rectangle(char **str)
 {
-	t_data	*data;
+	int		i;
+	size_t	n;
 
-	if (ac != 2)
-		return (1);
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (perror("data"), 1);
-	if (ft_check_debut(av[1], data) == 1)
-		return (1);
-	if (ft_init_mlx_window(data) == 1)
-		return (1);
-	if (init_image(data) == 1)
-		return (ft_free_image_reduite(data), 1);
-	ft_print_image(data);
-	mlx_hook(data->win_ptr, DestroyNotify, 0, ft_free_final_croix, data);
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_deplacement, data);
-	mlx_loop(data->mlx_ptr);
+	i = 0;
+	n = ft_strlen(str[i]);
+	while (str[i] != NULL)
+	{
+		if (ft_strlen(str[i]) != n)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	ft_check_mur(char **str, t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (y <= data->max_y)
+	{
+		while (x <= data->max_x)
+		{
+			if ((y == 0 || y == data->max_y) && (str[y][x] != '1'))
+				return (1);
+			else if ((x == 0 || x == data->max_x) && (str[y][x] != '1'))
+				return (1);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	return (0);
+}
+
+int	ft_check_charmap_exec(char **str, t_data *data)
+{
+	if (ft_check_rectangle(str) == 1)
+		return (ft_printf("Erreur\nRectangle\n"), 1);
+	data->x = 0;
+	data->y = 0;
+	data->max_x = ft_strlen(str[0]) - 1;
+	data->max_y = data->y;
+	while (str[data->max_y] != NULL)
+		data->max_y++;
+	data->max_y -= 1;
+	if (ft_check_mur(str, data) == 1)
+		return (ft_printf("Erreur\nMur\n"), 1);
 	return (0);
 }

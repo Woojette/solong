@@ -12,24 +12,22 @@
 
 #include "so_long.h"
 
-int	main(int ac, char **av)
+int	ft_init_mlx_window(t_data *data)
 {
-	t_data	*data;
-
-	if (ac != 2)
-		return (1);
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (perror("data"), 1);
-	if (ft_check_debut(av[1], data) == 1)
-		return (1);
-	if (ft_init_mlx_window(data) == 1)
-		return (1);
-	if (init_image(data) == 1)
-		return (ft_free_image_reduite(data), 1);
-	ft_print_image(data);
-	mlx_hook(data->win_ptr, DestroyNotify, 0, ft_free_final_croix, data);
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_deplacement, data);
-	mlx_loop(data->mlx_ptr);
+	data->mlx_ptr = mlx_init();
+	if (!data->mlx_ptr)
+		return (perror("init erreur"),
+			ft_free_split_tout(data->charmap_origine),
+			ft_free_split_tout(data->charmap), ft_free(data), 1);
+	ft_init_valeur(data);
+	data->win_ptr = mlx_new_window(data->mlx_ptr,
+			(data->max_x +1) * data->img_width,
+			(data->max_y +1) * data->img_height, "So Long");
+	if (!data->win_ptr)
+		return (perror("window erreur"), mlx_destroy_display(data->mlx_ptr),
+			free(data->mlx_ptr), free(data->charmap_origine),
+			ft_free_split_tout(data->charmap), ft_free(data), 1);
+	if (((data->max_x +1) > 30) || ((data->max_y +1) > 16))
+		return (perror("trop grand"), ft_free_image_reduite(data), 1);
 	return (0);
 }

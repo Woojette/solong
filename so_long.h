@@ -30,26 +30,26 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 
-# define KEY_ESC 65307 // exit
-# define KEY_haut 65362 // [y-1][x]
-# define KEY_W 119 // [y-1][x]
-# define KEY_gauche 65361 // [y][x-1]
-# define KEY_A 97 // [y][x-1]
-# define KEY_droite 65363 // [y][x+1]
-# define KEY_D 100 // [y][x+1]
-# define KEY_bas 65364 // [y+1][x]
-# define KEY_S 115 // [y+1][x]
+# define KEY_ESC 65307
+# define KEY_HAUT 65362
+# define KEY_W 119
+# define KEY_GAUCHE 65361
+# define KEY_A 97
+# define KEY_DROITE 65363
+# define KEY_D 100
+# define KEY_BAS 65364
+# define KEY_S 115
 
 typedef struct s_data {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*win_ptr2;
 	char	*img_path;
-	void	*img_calice; //
-	void	*img_mur; //
-	void	*img_player; //
-	void	*img_sol; //
-	void	*img_sortie; //
+	void	*img_calice;
+	void	*img_mur;
+	void	*img_player;
+	void	*img_sol;
+	void	*img_sortie;
 	int		img_width;
 	int		img_height;
 	int		map_x;
@@ -68,7 +68,6 @@ typedef struct s_data {
 	char	**charmap_origine;
 }	t_data;
 
-// int		main(int ac, char **av);
 char	*get_next_line(int fd);
 int		ft_check(char *str, char c);
 char	*ft_reste(char *str);
@@ -88,4 +87,38 @@ int		ft_putnbr_hexa_min(unsigned int n);
 int		ft_putnbr_hexa_max(unsigned int n);
 int		ft_putpointer(void *n);
 int		ft_printf(const char *str, ...);
+int		ft_free(t_data *data);
+void	ft_free_split_tout(char **str);
+void	ft_free_final(t_data *data);
+int		ft_free_final_croix(t_data *data);
+void	ft_free_image_reduite(t_data *data);
+int		ft_check_ber(char *str);
+int		ft_check_element(char *str);
+int		ft_check_un(char *str, char c);
+int		ft_check_un_plus(char *str, char c);
+int		ft_check_charread_exec(char *str, t_data *data);
+int		ft_check_rectangle(char **str);
+int		ft_check_charmap_exec(char **str, t_data *data);
+int		ft_check_mur(char **str, t_data *data);
+int		position_p(char **str, char c, t_data *data);
+int		ft_check_chemin_exec(t_data *data);
+int		ft_check_element_double_tableau(char **str, char c, t_data *data);
+int		ft_check_p_avec_espace(char **str, int y, int x, t_data *data);
+void	ft_print_map(char **str, t_data *data);
+void	ft_print_image_detaillee(char c, int y, int x, t_data *data);
+int		ft_print_image(t_data *data);
+int		key_deplacement(int key, t_data *data);
+void	ft_haut(t_data *data);
+int		init_player(t_data *data);
+int		init_mur(t_data *data);
+int		init_calice(t_data *data);
+int		init_sortie(t_data *data);
+int		init_sol(t_data *data);
+int		init_image(t_data *data);
+void	ft_init_valeur(t_data *data);
+int		ft_check_calice(char *str, char c);
+int		ft_init_fichier(char *str, t_data *data);
+int		ft_check_debut(char *str, t_data *data);
+int		ft_init_mlx_window(t_data *data);
+
 #endif
