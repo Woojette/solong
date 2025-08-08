@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 MLX = -Lminilibx-linux -lmlx -lXext -lX11
 
-SRC =	so_long.c \
+SRC =	main.c \
 	get_next_line_tout.c \
 	get_next_line_utils.c \
 	libft_petit.c \
@@ -26,8 +26,8 @@ SRC =	so_long.c \
 
 OBJ = ${SRC:.c=.o}
 
-%.o:%.cc
-	${CC} ${CFLAGS} ${MLX} -c $< -o $@
+%.o:%.c
+	${CC} ${CFLAGS} -c $< -o $@
 
 NAME	= so_long
 
